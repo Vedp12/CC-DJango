@@ -7,5 +7,5 @@ class Employee(models.Model):
     address=models.CharField(max_length=50)
     phone=models.IntegerField()
 
-    def _str_(self) -> str:
+    def __str__(self) -> str:
         return self.name

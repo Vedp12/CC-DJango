@@ -3,7 +3,12 @@ from .models import*
 # Create your views here.
 
 def crud(request):
-    return render(request,"crud.html") 
+    empid=Employee.objects.all()
+    print(empid)
+    context={
+        "empid":empid
+    }
+    return render(request,"crud.html",context) 
 
 def create(request):
     if request.POST:    
@@ -12,6 +17,7 @@ def create(request):
         address=request.POST['address']
         phone=request.POST['phone']
         Employee.objects.create(name=name,email=email,address=address,phone=phone)
-        return redirect(crud)
+        print(name, email, phone , address)
+        return redirect('crud')
     else:
         return render(request,"crud.html")
