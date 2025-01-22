@@ -7,6 +7,7 @@ def crud(request):
     print(empid)
     context={
         "empid":empid
+        
     }
     return render(request,"crud.html",context) 
 
@@ -21,3 +22,28 @@ def create(request):
         return redirect('crud')
     else:
         return render(request,"crud.html")
+    
+def update(request,id):
+    empid=Employee.objects.get(id=id)
+    print(empid)
+    if request.POST:    
+        name=request.POST['name']
+        email=request.POST['email']
+        address=request.POST['address']
+        phone=request.POST['phone']
+        
+        empid.name=name
+        empid.email=email
+        empid.address=address
+        empid.phone = phone
+        empid.save()
+        
+        print(name, email, phone , address)
+        return redirect(crud)
+    else:
+        return render(request,"crud.html")
+    
+def delete(request, id):
+    empid = Employee.objects.get(id=id)
+    empid.delete()
+    return redirect(crud)
